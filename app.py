@@ -78,7 +78,7 @@ st.markdown("""
 <div style="text-align:center">
     <strong>Made with ❤️ by Aditya Raj</strong><br>
     ECE Undergrad @ Birla Institute of Technology, Mesra<br><br>
-    <a href="https://www.linkedin.com/in/adityar-a-j/" target="_blank">🔗 LinkedIn</a> |
-    <a href="https://www.instagram.com/adityar_a_j_/" target="_blank">📸 Instagram</a>
+    <a href="https://www.linkedin.com/in/adityaraj-bit/" target="_blank">🔗 LinkedIn</a> |
+    <a href="https://www.instagram.com/adityar_a_j_?igsh=MTZicm1qejZmMWg4MQ==/" target="_blank">📸 Instagram</a>
 </div>
 """, unsafe_allow_html=True)
