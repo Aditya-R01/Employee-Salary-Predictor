@@ -1,8 +1,0 @@
-pip install --upgrade pip
-
-streamlit
-scikit-learn
-pandas
-numpy
-matplotlib.pyplot
-pickle
