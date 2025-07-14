@@ -5,7 +5,7 @@ import numpy as np
 
 
 # Load trained model
-model = pickle.load(open("lr_model.pkl", "rb"))
+model = joblib.load('rf_model_compressed.pkl')
 
 # ===== Encodings =====
 education_encoding = {
