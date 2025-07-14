@@ -13,7 +13,7 @@ education_encoding = {"High School": 1, "Bachelor's":0, "Master's": 2, "PhD": 3}
 location_encoding = {"Rural": 0, "Suburban": 1, "Urban": 2}
 job_title_encoding = {
     'Clerk':0, 'Technician':9, 'Customer Support':1, 'Data Analyst':2,
-    'Software Engineer':8, 'Marketing Executive':6, 'HR Manager':5,
+    'Software Engineer':8, 'HR Manager':5,
     'Data Scientist':3, 'Product Manager':7, 'Director':4
 }
 gender_encoding = {'Female': 0, 'Male': 1}
