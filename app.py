@@ -9,8 +9,8 @@ model = joblib.load('rf_model_compressed.pkl')
 
 # ===== Encodings =====
 education_encoding = {
-    "High School": 0,
-    "Bachelor's":1,
+    "High School": 1,
+    "Bachelor's":0,
     "Master's": 2,
     "PhD": 3
 }
@@ -21,8 +21,7 @@ location_encoding = {
     "Urban": 2
 }
 
-
-job_title_encoding = {
+'''job_title_encoding = {
     'Clerk':0,
     'Technician':1,
     'Customer Support':2,
@@ -33,6 +32,18 @@ job_title_encoding = {
     'Data Scientist':7,
     'Product Manager':8,
     'Director':9
+}'''
+job_title_encoding = {
+    'Clerk':0,
+    'Technician':9,
+    'Customer Support':1,
+    'Data Analyst':2,
+    'Software Engineer':8,
+    'Marketing Executive':6,
+    'HR Manager':5,
+    'Data Scientist':3,
+    'Product Manager':7,
+    'Director':4
 }
 
 gender_encoding = {
