@@ -5,10 +5,10 @@ import numpy as np
 import requests
 from streamlit_lottie import st_lottie
 
-# ===== Load Model =====
+
 model = joblib.load('rf_model_compressed.pkl')
 
-# ===== Encodings =====
+
 education_encoding = {"High School": 1, "Bachelor's":0, "Master's": 2, "PhD": 3}
 location_encoding = {"Rural": 0, "Suburban": 1, "Urban": 2}
 job_title_encoding = {
@@ -18,7 +18,7 @@ job_title_encoding = {
 }
 gender_encoding = {'Male': 1, 'Female': 0}
 
-# ===== Custom CSS =====
+
 st.set_page_config(page_title="Salary Predictor 💼", page_icon="💸", layout="centered")
 
 st.markdown("""
@@ -39,17 +39,17 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# ===== Lottie Animation Loader =====
+
 def load_lottieurl(url: str):
     r = requests.get(url)
     if r.status_code != 200:
         return None
     return r.json()
 
-# Load animation
+
 lottie_ai = load_lottieurl("https://assets10.lottiefiles.com/packages/lf20_jcikwtux.json")
 
-# ===== Header =====
+
 st_lottie(lottie_ai, height=200, key="ai")
 st.title("💰 Your Financial Compass: AI Salary Insights")
 st.markdown("""
@@ -58,7 +58,7 @@ st.markdown("""
     Simply provide your details below and let our model do the rest!
 """)
 
-# ===== Input UI =====
+
 with st.form("predict_form"):
     col1, col2 = st.columns(2)
 
@@ -75,26 +75,17 @@ with st.form("predict_form"):
     submitted = st.form_submit_button("✨ Get My Salary Estimate!")
 
     if submitted:
-        # ===== Input Validation Logic =====
-        # 1. Basic check: Age must be greater than experience
+
         if age <= experience:
             st.error("❌ Error: Age must be greater than years of experience. Please adjust your inputs.")
             st.stop() # Stop execution if validation fails
 
-        # 2. More realistic check: Assume a minimum starting age for work (e.g., 18)
-        # So, age - experience should be at least this starting age.
         min_starting_age = 18
         if (age - experience) < min_starting_age:
             st.error(f"❌ Error: An individual's age minus their experience should be at least {min_starting_age} (representing a realistic starting age). Please adjust.")
             st.stop()
 
-        # You can add more specific checks if needed, e.g.,
-        # if experience > 30 and age < 50:
-        #     st.warning("🤔 Warning: High experience for a relatively young age. Ensure inputs are correct.")
 
-
-        # ===== If validation passes, proceed with prediction =====
-        # Encode input
         input_vector = np.array([[
             education_encoding[education],
             experience,
@@ -107,11 +98,10 @@ with st.form("predict_form"):
 
         # Predict
         salary = model.predict(input_df)[0]
-        st.balloons() # Added balloons for success!
         st.success(f"🎉 Great news! Your estimated monthly salary is: **₹{salary:,.2f}**")
         st.info("💡 Keep in mind, this is an estimate based on market data. Actual offers may vary.")
 
-# ===== Footer =====
+
 st.markdown("""
 <hr>
 <div style="text-align:center; padding-top: 20px;">
