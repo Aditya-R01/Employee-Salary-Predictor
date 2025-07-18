@@ -12,11 +12,11 @@ model = joblib.load('rf_model_compressed.pkl')
 education_encoding = {"High School": 1, "Bachelor's":0, "Master's": 2, "PhD": 3}
 location_encoding = {"Rural": 0, "Suburban": 1, "Urban": 2}
 job_title_encoding = {
-    'Clerk':0, 'Technician':9, 'Customer Support':1, 'Data Analyst':2,
-    'Software Engineer':8, 'HR Manager':5,
+    'Clerk':0, 'Technician':1, 'Customer Support':9, 'Data Analyst':5,
+    'Software Engineer':2, 'HR Manager':8,
     'Data Scientist':3, 'Product Manager':7, 'Director':4
 }
-gender_encoding = {'Female': 0, 'Male': 1}
+gender_encoding = {'Male': 1, 'Female': 0}
 
 # ===== Custom CSS =====
 st.set_page_config(page_title="Salary Predictor 💼", page_icon="💸", layout="centered")
@@ -33,6 +33,9 @@ st.markdown("""
         box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     }
     .css-1d391kg { background-color: #fff0;}
+    a {
+        text-decoration: none; /* Removes underline from links */
+    }
     </style>
 """, unsafe_allow_html=True)
 
@@ -48,8 +51,12 @@ lottie_ai = load_lottieurl("https://assets10.lottiefiles.com/packages/lf20_jcikw
 
 # ===== Header =====
 st_lottie(lottie_ai, height=200, key="ai")
-st.title("💼 AI-Powered Salary Predictor")
-st.markdown("Enter employee details below to predict **realistic salary** based on market standards.")
+st.title("💰 Your Financial Compass: AI Salary Insights")
+st.markdown("""
+    Unlock your earning potential! This **AI-powered tool** helps you discover **realistic salary estimates**
+    based on current market trends and your unique profile.
+    Simply provide your details below and let our model do the rest!
+""")
 
 # ===== Input UI =====
 with st.form("predict_form"):
@@ -65,9 +72,28 @@ with st.form("predict_form"):
         age = st.slider("🎂 Age", 18, 65, 30)
         gender = st.selectbox("👤 Gender", list(gender_encoding.keys()))
 
-    submitted = st.form_submit_button("🚀 Predict Salary")
+    submitted = st.form_submit_button("✨ Get My Salary Estimate!")
 
     if submitted:
+        # ===== Input Validation Logic =====
+        # 1. Basic check: Age must be greater than experience
+        if age <= experience:
+            st.error("❌ Error: Age must be greater than years of experience. Please adjust your inputs.")
+            st.stop() # Stop execution if validation fails
+
+        # 2. More realistic check: Assume a minimum starting age for work (e.g., 18)
+        # So, age - experience should be at least this starting age.
+        min_starting_age = 18
+        if (age - experience) < min_starting_age:
+            st.error(f"❌ Error: An individual's age minus their experience should be at least {min_starting_age} (representing a realistic starting age). Please adjust.")
+            st.stop()
+
+        # You can add more specific checks if needed, e.g.,
+        # if experience > 30 and age < 50:
+        #     st.warning("🤔 Warning: High experience for a relatively young age. Ensure inputs are correct.")
+
+
+        # ===== If validation passes, proceed with prediction =====
         # Encode input
         input_vector = np.array([[
             education_encoding[education],
@@ -81,15 +107,31 @@ with st.form("predict_form"):
 
         # Predict
         salary = model.predict(input_df)[0]
-        st.success(f"🤑 Estimated Monthly Salary: ₹{salary:,.2f}")
+        st.balloons() # Added balloons for success!
+        st.success(f"🎉 Great news! Your estimated monthly salary is: **₹{salary:,.2f}**")
+        st.info("💡 Keep in mind, this is an estimate based on market data. Actual offers may vary.")
 
 # ===== Footer =====
 st.markdown("""
 <hr>
-<div style="text-align:center">
-    <strong>Made with ❤️ by Aditya Raj</strong><br>
-    ECE Undergrad @ Birla Institute of Technology, Mesra<br><br>
-    <a href="https://www.linkedin.com/in/adityaraj-bit/" target="_blank">🔗 LinkedIn</a> |
-    <a href="https://www.instagram.com/adityar_a_j_?igsh=MTZicm1qejZmMWg4MQ==/" target="_blank">📸 Instagram</a>
+<div style="text-align:center; padding-top: 20px;">
+    <p style="font-size: 1.1em; color: #555;">
+        Built with dedication and data by <strong>Aditya Raj</strong> 🚀
+    </p>
+    <p style="font-size: 0.9em; color: #777;">
+        An ECE Undergrad from Birla Institute of Technology, Mesra.
+    </p>
+    <p style="font-size: 1.0em; margin-top: 15px;">
+        <a href="https://www.linkedin.com/in/adityaraj-bit/" target="_blank" style="text-decoration: none; color: #0077B5; margin: 0 10px;">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/LinkedIn_logo_initials.png/480px-LinkedIn_logo_initials.png" width="20" height="20" style="vertical-align: middle;"> LinkedIn
+        </a> |
+        <a href="https://www.instagram.com/adityar_a_j_?igsh=MTZicm1qejZmMWg4MQ==/" target="_blank" style="text-decoration: none; color: #C13584; margin: 0 10px;">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/768px-Instagram_logo_2016.svg.png" width="20" height="20" style="vertical-align: middle;"> Instagram
+        </a> |
+        <a href="https://aditya-r01.github.io/Portfolio-website/" target="_blank" style="text-decoration: none; color: #337ab7; margin: 0 10px;">
+            <img src="https://www.citypng.com/public/uploads/preview/transparent-hd-internet-globe-blue-icon-701751695035228s3pzw5luvt.png?v=2025061313" width="20" height="20" style="vertical-align: middle;"> My Portfolio
+        </a>
+    </p>
 </div>
 """, unsafe_allow_html=True)
+
