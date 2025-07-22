@@ -6,7 +6,7 @@ import requests
 from streamlit_lottie import st_lottie
 
 
-model = joblib.load('rf_model_compressed.pkl')
+model = joblib.load('rf_model1_compressed.pkl')
 
 
 education_encoding = {"High School": 1, "Bachelor's":0, "Master's": 2, "PhD": 3}
