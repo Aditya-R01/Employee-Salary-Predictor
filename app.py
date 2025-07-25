@@ -120,6 +120,9 @@ st.markdown("""
         </a> |
         <a href="https://aditya-r01.github.io/Portfolio-website/" target="_blank" style="text-decoration: none; color: #337ab7; margin: 0 10px;">
             <img src="https://www.citypng.com/public/uploads/preview/transparent-hd-internet-globe-blue-icon-701751695035228s3pzw5luvt.png?v=2025061313" width="20" height="20" style="vertical-align: middle;"> My Portfolio
+        </a> |
+        <a href="https://github.com/Aditya-R01/Employee-Salary-Predictor" target="_blank" style="text-decoration: none; color: #337ab7; margin: 0 10px;">
+            <img src="https://icones.pro/wp-content/uploads/2021/06/icone-github-orange.png" width="20" height="20" style="vertical-align: middle;"> View in GitHub
         </a>
     </p>
 </div>
